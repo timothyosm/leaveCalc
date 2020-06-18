@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="moment.js"></script>
+    <link rel="stylesheet" href="milicss.css" />
+  </head>
+  <body>
+    <label for="al">Leave Accrual</label>
+    <input type="float" id="al" name="al" value = '0'/>
+    <label for="cb">Current Balance</label>
+    <input type="float" id="cb" name="cb" value = '0'/>
+    <label for="lp">Leave Approved in Hours</label>
+    <input type="float" id="lp" name="lp" value = '0'/>
+    <br />
+    <a class="button" onclick="button()" id="submit">Submit</a>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th>Leave as at 2020-09-30</th>
+          <th>Minus leave approved</th>
+          <th>Leave that needs to be taken to hit 75 hours (If negative you're fine)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="leave"></td>
+          <td id="leave1"></td>
+          <td id="leave2"></td>
+
+        </tr>
+
+      </tbody>
+    </table>
+  </body>
+</html>
+
+<script>
+  function button() {
+    var eventdate = moment("2020-09-30");
+    var todaysdate = moment();
+    var dr = eventdate.diff(todaysdate, "days");
+    var rate = document.querySelector("#al").value;
+    var leaveAT = dr * rate;
+    console.log(leaveAT);
+    var currentBalance = document.querySelector("#cb").value;
+    console.log(currentBalance);
+    var bookedLeave = document.querySelector("#lp").value;
+    console.log(bookedLeave);
+    let step1 = parseFloat(leaveAT) + parseFloat(currentBalance);
+    console.log(step1);
+    let step2 = parseFloat(step1) - parseFloat(bookedLeave);
+
+    let step3 = parseFloat(step2)  - parseFloat(75)
+
+    document.querySelector("#leave").innerHTML = step1;
+    document.querySelector("#leave1").innerHTML = step2;
+    document.querySelector("#leave2").innerHTML = step3;
+  }
+</script>
