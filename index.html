@@ -43,7 +43,8 @@
   function button() {
     var eventdate = moment("2020-09-30");
     var todaysdate = moment();
-    var dr = eventdate.diff(todaysdate, "days");
+    var dr = eventdate.diff(todaysdate, "days") - 1;
+    console.log(dr)
     var rate = document.querySelector("#al").value;
     var leaveAT = dr * rate;
     console.log(leaveAT);
